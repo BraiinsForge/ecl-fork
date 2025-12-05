@@ -1857,6 +1857,21 @@ extern ECL_API cl_object mp_giveup_rwlock_read(cl_object lock);
 extern ECL_API cl_object mp_giveup_rwlock_write(cl_object lock);
 extern ECL_API cl_object ecl_make_rwlock(cl_object lock);
 
+#else /* !ECL_THREADS - stub declarations for non-threaded builds */
+
+/* threads/mutex.c stubs */
+extern ECL_API cl_object mp_make_lock _ECL_ARGS((cl_narg narg, ...));
+extern ECL_API cl_object mp_recursive_lock_p(cl_object lock);
+extern ECL_API cl_object mp_holding_lock_p(cl_object lock);
+extern ECL_API cl_object mp_lock_name(cl_object lock);
+extern ECL_API cl_object mp_lock_owner(cl_object lock);
+extern ECL_API cl_object mp_lock_count(cl_object lock);
+extern ECL_API cl_object mp_get_lock _ECL_ARGS((cl_narg narg, cl_object lock, ...));
+extern ECL_API cl_object mp_get_lock_wait(cl_object lock);
+extern ECL_API cl_object mp_get_lock_nowait(cl_object lock);
+extern ECL_API cl_object mp_giveup_lock(cl_object lock);
+extern ECL_API cl_object ecl_make_lock(cl_object lock, bool recursive);
+
 #endif /* ECL_THREADS */
 
 /* time.c */

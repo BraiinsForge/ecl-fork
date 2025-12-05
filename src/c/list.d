@@ -1156,3 +1156,80 @@ ecl_assqlp(cl_object x, cl_object l)
   return(ECL_NIL);
 }
 /* End of addition. Beppe */
+
+#ifndef ECL_THREADS
+/*----------------------------------------------------------------------
+ * Stub implementations for lock functions in non-threaded builds.
+ * These are no-ops since there's no concurrent access.
+ */
+
+cl_object
+mp_make_lock(cl_narg narg, ...)
+{
+  /* In non-threaded builds, locks are not needed.
+     Return NIL as a placeholder. */
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_get_lock(cl_narg narg, cl_object lock, ...)
+{
+  /* Always succeed in acquiring the "lock" */
+  @(return ECL_T);
+}
+
+cl_object
+mp_get_lock_wait(cl_object lock)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_get_lock_nowait(cl_object lock)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_giveup_lock(cl_object lock)
+{
+  /* No-op for releasing the "lock" */
+  @(return ECL_T);
+}
+
+cl_object
+mp_recursive_lock_p(cl_object lock)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_holding_lock_p(cl_object lock)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_lock_name(cl_object lock)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_lock_owner(cl_object lock)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_lock_count(cl_object lock)
+{
+  @(return ecl_make_fixnum(0));
+}
+
+cl_object
+ecl_make_lock(cl_object name, bool recursive)
+{
+  return ECL_NIL;
+}
+#endif /* !ECL_THREADS */
