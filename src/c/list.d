@@ -693,6 +693,54 @@ mp_atomic_incf_cdr(cl_object x, cl_object increment)
     FEwrong_type_nth_arg(@[mp::atomic-incf-cdr], 1, x, @[cons]);
   return ecl_atomic_incf(&ECL_CONS_CDR(x), increment);
 }
+#else /* !ECL_THREADS - non-atomic stubs for single-threaded builds */
+cl_object
+mp_compare_and_swap_car(cl_object x, cl_object old, cl_object new)
+{
+  cl_object previous;
+  if (ecl_unlikely(!ECL_CONSP(x)))
+    FEwrong_type_nth_arg(@[rplaca], 1, x, @[cons]);
+  previous = ECL_CONS_CAR(x);
+  if (previous == old) {
+    ECL_RPLACA(x, new);
+  }
+  return previous;
+}
+
+cl_object
+mp_atomic_incf_car(cl_object x, cl_object increment)
+{
+  cl_object previous;
+  if (ecl_unlikely(!ECL_CONSP(x)))
+    FEwrong_type_nth_arg(@[rplaca], 1, x, @[cons]);
+  previous = ECL_CONS_CAR(x);
+  ECL_RPLACA(x, ecl_plus(previous, increment));
+  return previous;
+}
+
+cl_object
+mp_compare_and_swap_cdr(cl_object x, cl_object old, cl_object new)
+{
+  cl_object previous;
+  if (ecl_unlikely(!ECL_CONSP(x)))
+    FEwrong_type_nth_arg(@[rplacd], 1, x, @[cons]);
+  previous = ECL_CONS_CDR(x);
+  if (previous == old) {
+    ECL_RPLACD(x, new);
+  }
+  return previous;
+}
+
+cl_object
+mp_atomic_incf_cdr(cl_object x, cl_object increment)
+{
+  cl_object previous;
+  if (ecl_unlikely(!ECL_CONSP(x)))
+    FEwrong_type_nth_arg(@[rplacd], 1, x, @[cons]);
+  previous = ECL_CONS_CDR(x);
+  ECL_RPLACD(x, ecl_plus(previous, increment));
+  return previous;
+}
 #endif /* ECL_THREADS */
 
 @(defun subst (new_obj old_obj tree &key test test_not key)

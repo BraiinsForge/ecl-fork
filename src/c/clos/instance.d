@@ -241,6 +241,82 @@ mp_atomic_incf_instance(cl_object x, cl_object index, cl_object increment)
   }
   return ecl_atomic_incf(x->instance.slots + i, increment);
 }
+#else /* !ECL_THREADS - non-atomic stubs for single-threaded builds */
+cl_object
+ecl_compare_and_swap_instance(cl_object x, cl_fixnum i, cl_object old, cl_object new)
+{
+  cl_object previous;
+  unlikely_if (!ECL_INSTANCEP(x)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 1, x, @[ext::instance]);
+  }
+  unlikely_if (i >= x->instance.length || i < 0) {
+    FEtype_error_index(x, i);
+  }
+  previous = x->instance.slots[i];
+  if (previous == old) {
+    x->instance.slots[i] = new;
+  }
+  return previous;
+}
+
+cl_object
+mp_compare_and_swap_instance(cl_object x, cl_object index, cl_object old, cl_object new)
+{
+  cl_fixnum i;
+  cl_object previous;
+
+  unlikely_if (!ECL_INSTANCEP(x)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 1, x, @[ext::instance]);
+  }
+  unlikely_if (!ECL_FIXNUMP(index)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 2, index, @[fixnum]);
+  }
+  i = ecl_fixnum(index);
+  unlikely_if (i >= (cl_fixnum)x->instance.length || i < 0) {
+    FEtype_error_index(x, i);
+  }
+  previous = x->instance.slots[i];
+  if (previous == old) {
+    x->instance.slots[i] = new;
+  }
+  return previous;
+}
+
+cl_object
+ecl_atomic_incf_instance(cl_object x, cl_fixnum i, cl_object increment)
+{
+  cl_object previous;
+  unlikely_if (!ECL_INSTANCEP(x)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 1, x, @[ext::instance]);
+  }
+  unlikely_if (i >= x->instance.length || i < 0) {
+    FEtype_error_index(x, i);
+  }
+  previous = x->instance.slots[i];
+  x->instance.slots[i] = ecl_plus(previous, increment);
+  return previous;
+}
+
+cl_object
+mp_atomic_incf_instance(cl_object x, cl_object index, cl_object increment)
+{
+  cl_fixnum i;
+  cl_object previous;
+
+  unlikely_if (!ECL_INSTANCEP(x)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 1, x, @[ext::instance]);
+  }
+  unlikely_if (!ECL_FIXNUMP(index)) {
+    FEwrong_type_nth_arg(@[si::instance-set], 2, index, @[fixnum]);
+  }
+  i = ecl_fixnum(index);
+  unlikely_if (i >= (cl_fixnum)x->instance.length || i < 0) {
+    FEtype_error_index(x, i);
+  }
+  previous = x->instance.slots[i];
+  x->instance.slots[i] = ecl_plus(previous, increment);
+  return previous;
+}
 #endif /* ECL_THREADS */
 
 cl_object

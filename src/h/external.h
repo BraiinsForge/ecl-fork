@@ -842,12 +842,12 @@ extern ECL_API cl_object si_copy_instance(cl_object x);
 extern ECL_API cl_object ecl_slot_value(cl_object x, const char *slot);
 extern ECL_API cl_object ecl_slot_value_set(cl_object x, const char *slot, cl_object y);
 
-#ifdef ECL_THREADS
+/* These functions are available in both threaded and non-threaded builds.
+   In non-threaded builds, they use simple non-atomic operations. */
 extern ECL_API cl_object ecl_compare_and_swap_instance(cl_object x, cl_fixnum i, cl_object old_val, cl_object new_val);
 extern ECL_API cl_object mp_compare_and_swap_instance(cl_object x, cl_object index, cl_object old_val, cl_object new_val);
 extern ECL_API cl_object ecl_atomic_incf_instance(cl_object x, cl_fixnum i, cl_object increment);
 extern ECL_API cl_object mp_atomic_incf_instance(cl_object x, cl_object index, cl_object increment);
-#endif
 
 /* list.c */
 
@@ -920,12 +920,12 @@ extern ECL_API cl_object ecl_delete_eq(cl_object x, cl_object l);
 #define si_cons_car cl_car
 #define si_cons_cdr cl_cdr
 
-#ifdef ECL_THREADS
+/* These functions are available in both threaded and non-threaded builds.
+   In non-threaded builds, they use simple non-atomic operations. */
 extern ECL_API cl_object mp_compare_and_swap_car(cl_object x, cl_object old_val, cl_object new_val);
 extern ECL_API cl_object mp_atomic_incf_car(cl_object x, cl_object increment);
 extern ECL_API cl_object mp_compare_and_swap_cdr(cl_object x, cl_object old_val, cl_object new_val);
 extern ECL_API cl_object mp_atomic_incf_cdr(cl_object x, cl_object increment);
-#endif
 
 /* load.c */
 
