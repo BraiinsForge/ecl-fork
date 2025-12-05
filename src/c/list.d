@@ -1311,8 +1311,7 @@ mp_current_process(void)
 cl_object
 mp_exit_process(void)
 {
-  cl_exit(0);
-  /* Never reached */
+  /* In single-threaded mode, just return - there's only one "process" */
   @(return ECL_NIL);
 }
 
