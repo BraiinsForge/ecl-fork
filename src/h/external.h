@@ -1894,6 +1894,9 @@ extern ECL_API cl_object mp_process_join(cl_object process);
 extern ECL_API cl_object mp_process_kill(cl_object process);
 extern ECL_API cl_object mp_block_signals(void);
 extern ECL_API cl_object mp_restore_signals(cl_object mask);
+extern ECL_API cl_object mp_make_process _ECL_ARGS((cl_narg narg, ...));
+extern ECL_API cl_object mp_process_preset _ECL_ARGS((cl_narg narg, cl_object process, cl_object function, ...));
+extern ECL_API cl_object mp_process_run_function _ECL_ARGS((cl_narg narg, cl_object name, cl_object function, ...));
 
 #endif /* ECL_THREADS */
 

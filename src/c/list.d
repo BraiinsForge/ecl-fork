@@ -1350,4 +1350,22 @@ mp_restore_signals(cl_object mask)
 {
   @(return ECL_NIL);
 }
+
+cl_object
+mp_make_process(cl_narg narg, ...)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_preset(cl_narg narg, cl_object process, cl_object function, ...)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_run_function(cl_narg narg, cl_object name, cl_object function, ...)
+{
+  @(return ECL_NIL);
+}
 #endif /* !ECL_THREADS */
