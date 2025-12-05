@@ -1872,6 +1872,29 @@ extern ECL_API cl_object mp_get_lock_nowait(cl_object lock);
 extern ECL_API cl_object mp_giveup_lock(cl_object lock);
 extern ECL_API cl_object ecl_make_lock(cl_object lock, bool recursive);
 
+/* threads/condition_variable.c stubs */
+extern ECL_API cl_object mp_make_condition_variable(void);
+extern ECL_API cl_object mp_condition_variable_wait(cl_object cv, cl_object lock);
+extern ECL_API cl_object mp_condition_variable_timedwait(cl_object cv, cl_object lock, cl_object seconds);
+extern ECL_API cl_object mp_condition_variable_signal(cl_object cv);
+extern ECL_API cl_object mp_condition_variable_broadcast(cl_object cv);
+
+/* threads/process.c stubs */
+extern ECL_API cl_object mp_all_processes(void);
+extern ECL_API cl_object mp_process_active_p(cl_object process);
+extern ECL_API cl_object mp_process_name(cl_object process);
+extern ECL_API cl_object mp_interrupt_process(cl_object process, cl_object function);
+extern ECL_API cl_object mp_process_suspend(cl_object process);
+extern ECL_API cl_object mp_process_resume(cl_object process);
+extern ECL_API cl_object mp_current_process(void);
+extern ECL_API cl_object mp_exit_process(void);
+extern ECL_API cl_object mp_process_yield(void);
+extern ECL_API cl_object mp_process_enable(cl_object process);
+extern ECL_API cl_object mp_process_join(cl_object process);
+extern ECL_API cl_object mp_process_kill(cl_object process);
+extern ECL_API cl_object mp_block_signals(void);
+extern ECL_API cl_object mp_restore_signals(cl_object mask);
+
 #endif /* ECL_THREADS */
 
 /* time.c */

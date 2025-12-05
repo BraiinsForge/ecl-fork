@@ -1232,4 +1232,123 @@ ecl_make_lock(cl_object name, bool recursive)
 {
   return ECL_NIL;
 }
+
+/* Condition variable stubs */
+cl_object
+mp_make_condition_variable(void)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_condition_variable_wait(cl_object cv, cl_object lock)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_condition_variable_timedwait(cl_object cv, cl_object lock, cl_object seconds)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_condition_variable_signal(cl_object cv)
+{
+  @(return ECL_T);
+}
+
+cl_object
+mp_condition_variable_broadcast(cl_object cv)
+{
+  @(return ECL_T);
+}
+
+/* Process management stubs */
+cl_object
+mp_all_processes(void)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_active_p(cl_object process)
+{
+  /* In single-threaded mode, the "process" is always active */
+  @(return ECL_T);
+}
+
+cl_object
+mp_process_name(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_interrupt_process(cl_object process, cl_object function)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_suspend(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_resume(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_current_process(void)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_exit_process(void)
+{
+  cl_exit(0);
+  /* Never reached */
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_yield(void)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_enable(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_join(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_process_kill(cl_object process)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_block_signals(void)
+{
+  @(return ECL_NIL);
+}
+
+cl_object
+mp_restore_signals(cl_object mask)
+{
+  @(return ECL_NIL);
+}
 #endif /* !ECL_THREADS */
